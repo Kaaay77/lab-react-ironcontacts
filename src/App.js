@@ -11,25 +11,35 @@ const contactosSobrantes = contactsData.splice(5);
 function App() {
   const [contacts, setContacts] = useState(contacts5)
 
-  const randomContact = (e) => {
+  const randomContact = () => {
    const random = contactosSobrantes[Math.floor(Math.random()*contactosSobrantes.length)];
     setContacts(current => [...current, random]);
   }
 
   const popularitySort = () =>{
+    // eslint-disable-next-line
      const popular = contacts.sort((a, b) => b.popularity - a.popularity)
-     setContacts(popular)
+     setContacts(current => [...current]);
     }
 
   const alphabeticSort = () => {
+    // eslint-disable-next-line
    const alph =  contacts.sort((a, b) => {
       if (a.name < b.name) return -1
       if (a.name > b.name) return 1
       return 0
     })
-    setContacts(alph)
+    setContacts(current => [...current]);
   }
 
+  const clickToDelete = (contactId) => {
+    const filteredContacts = contacts.filter((contact) => {
+      
+      return contact.id !== contactId;
+  })
+  setContacts(filteredContacts)
+}
+  
   // eslint-disable-next-line 
   return <div className="App-contain">
 
@@ -52,6 +62,7 @@ function App() {
                 <th>Popularity</th>
                 <th>Won an Oscar</th>
                 <th>Won an Emmy</th>
+                <th>Actions</th>
               </tr>
               {contacts.map((contact) => {
                   return(
@@ -64,17 +75,21 @@ function App() {
                         contact.wonOscar ? (
                           <td>🏆</td> 
                         ) : (
-                          <></>
+                          <td></td>
                         )
                       }
                       {
                         contact.wonEmmy ? (
                           <td>🏆</td> 
                         ) : (
-                          <></>
+                          <td></td>
                         )
                       }
-
+                      <td>
+                        <button onClick={ () => clickToDelete(contact.id) }>
+                          Delete ❌
+                        </button>
+                      </td>
                     </tr>
                     </>
                   )
