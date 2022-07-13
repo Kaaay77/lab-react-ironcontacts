@@ -44,6 +44,7 @@ function App() {
   return <div className="App-contain">
 
   <h1>IronContacts</h1>
+<div className="botones">
 
   <button onClick={ () => randomContact() }>
     Add Random Contact
@@ -54,6 +55,7 @@ function App() {
   <button onClick={ () => popularitySort() }>
   highest first
   </button>
+</div>
 
             <table>
               <tr>
